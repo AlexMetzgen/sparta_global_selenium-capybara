@@ -21,7 +21,7 @@ class SeleniumDemoReg
   PASSWORD_FIELD = "password_2"# id
   CONFIRM_PASSWORD_FIELD ="confirm_password_password_2"  # id
   SUBMIT_BUTTON = "fieldset piereg_submit_button"# name
-  REGISTRATION_CONFIRMATION = "pie_submit"#class
+  REGISTRATION_CONFIRMATION = "piereg_message"#class
 
   def initialize
     # set up driver
@@ -77,21 +77,19 @@ class SeleniumDemoReg
 
   def select_marital_option (marital_status)
     # Consider something like a case statement and check the selenium selected? method
-    # @chrome_driver.find_element(:name, MARITAL_STATUS).click
+    element= @chrome_driver.find_element(:xpath, "//input[@value='#{marital_status}']").click
+    element2= @chrome_driver.find_element(:xpath, "//input[@value='#{marital_status}']").selected?
 
-    # @driver.find_element(:id,FIRST_NAME_FIELD).displayed?
-    element = @chrome_driver.find_element(:xpath, "//input[@value='#{marital_status}']").click
-    # element = @chrome_driver.find_element(:xpath, "//input[@value='#{marital_status}']").displayed?
-
+    #   puts element2
   end
 
 
   # hobby option management - Difficulty Medium
 
   def select_hobby_option(hobby)
-    # Consider something like a case statement and check the selenium selected? method
-    element = @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").click
-    # element = @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").displayed?
+    a = @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").click
+    a2 = @chrome_driver.find_element(:xpath, "//input[@value='#{hobby}']").selected?
+
   end
 
   # Select Country - Difficulty HARD
@@ -109,9 +107,14 @@ class SeleniumDemoReg
     select = @chrome_driver.find_element(:id, COUNTRY_DROP_DOWN_LIST)
     # get all the options for this element
     all_options = select.find_elements(:tag_name, "option")
-
     # select the options
-    all_options[2].click
+    # all_options[3].click
+    all_options.each do |countries|
+      if countries["value"]=="#{country}"
+        countries.click
+        # return result
+    end
+  end
 
   end
 
@@ -127,18 +130,31 @@ class SeleniumDemoReg
     # get all the options for this element
     all_options = select.find_elements(:tag_name, "option")
 
-    # select the options
-    all_options[2].click
+    all_options.each do |month|
+      if month["value"]=="#{month_value}"
+        month.click
+        # return result
+    end
+  end
   end
 
   def dob_day_list_select(day_value)
     # get the select element
+
     select = @chrome_driver.find_element(:id, DOB_DAY_DROPDOWN_LIST)
     # get all the options for this element
     all_options = select.find_elements(:tag_name, "option")
 
     # select the options
-    all_options[2].click
+
+    # all_options[2].click
+    all_options.each do |day|
+      if day["value"]=="#{day_value}"
+        day.click
+        # return result
+    end
+  end
+
   end
 
   def dob_year_list_select(year_value)
@@ -146,9 +162,13 @@ class SeleniumDemoReg
     select = @chrome_driver.find_element(:id, DOB_YEAR_DROPDOWN_LIST)
     # get all the options for this element
     all_options = select.find_elements(:tag_name, "option")
-
     # select the options
-    all_options[2].click
+    all_options.each do |year|
+      if year["value"]=="#{year_value}"
+        year.click
+        # return result
+    end
+  end
   end
 
 
@@ -209,24 +229,16 @@ class SeleniumDemoReg
 
   def get_confirmation_password_value
     @chrome_driver.find_element(:id,CONFIRM_PASSWORD_FIELD)["value"]
-        # sleep 10
+
   end
 
   # registration confirmation - Difficulty Easy
 
   def click_submit
-    @chrome_driver.find_element(By.className(SUBMIT_BUTTON)).click
-
-    # example html
-    # <div class="highlight-java" style="display: none; ">...</div>
-
-
-
-
-    sleep 30
+    @chrome_driver.find_element(:xpath, "//input[@name='pie_submit']").click
   end
 
   def check_registration_successful
-
+    @chrome_driver.find_element(:xpath, "//p[@class='piereg_message']").displayed?
   end
 end
