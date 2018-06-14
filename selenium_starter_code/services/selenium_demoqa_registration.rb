@@ -113,9 +113,8 @@ class SeleniumDemoReg
       if countries["value"]=="#{country}"
         countries.click
         # return result
+      end
     end
-  end
-
   end
 
   # DOB management - Difficulty HARD
@@ -134,8 +133,8 @@ class SeleniumDemoReg
       if month["value"]=="#{month_value}"
         month.click
         # return result
+      end
     end
-  end
   end
 
   def dob_day_list_select(day_value)
@@ -152,9 +151,8 @@ class SeleniumDemoReg
       if day["value"]=="#{day_value}"
         day.click
         # return result
+      end
     end
-  end
-
   end
 
   def dob_year_list_select(year_value)
@@ -167,8 +165,8 @@ class SeleniumDemoReg
       if year["value"]=="#{year_value}"
         year.click
         # return result
+      end
     end
-  end
   end
 
 
